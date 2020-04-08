@@ -1,4 +1,4 @@
-package io.github.conwayqa.main;
+package mainer;
 
 import java.util.Stack;
 import java.util.ArrayList;

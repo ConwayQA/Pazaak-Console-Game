@@ -1,4 +1,4 @@
-package io.github.conwayqa.main;
+package mainer;
 
 public class Runner {
 
