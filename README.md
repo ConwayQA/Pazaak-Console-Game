@@ -7,3 +7,5 @@ Simple console app in java for a 2 player game of Pazaak.
 
 ### Contributors:
 CarolineS-QA - *README.md*
+
+Felix Marley - Key contributor, to morale and motivation
