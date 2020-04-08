@@ -2,10 +2,12 @@ package mainer;
 
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Scanner;
 
 public class PlayGame {
+	String lineBreak = "=====================================================================";
 	
 	private Scanner checkInput = new Scanner(System.in);
 	
@@ -14,11 +16,11 @@ public class PlayGame {
 	private int player2Score = 0;
 	private int player1TableTotal = 0;
 	private int player2TableTotal = 0;
-	private List<Integer> player1Hand = new ArrayList<Integer>();
-	private List<Integer>  player2Hand = new ArrayList<Integer>();
-	private List<Integer> player1Table = new ArrayList<Integer>();
-	private List<Integer> player2Table = new ArrayList<Integer>();
-	private Stack<Integer> gameDeck = new Stack<Integer>();
+	private List<Integer> player1Hand = new ArrayList<>();
+	private List<Integer>  player2Hand = new ArrayList<>();
+	private List<Integer> player1Table = new ArrayList<>();
+	private List<Integer> player2Table = new ArrayList<>();
+	private Deque<Integer> gameDeck;
 	private boolean player1Stand = false;
 	private boolean player2Stand = false;
 	private boolean player1Turn = true;
@@ -82,18 +84,18 @@ public class PlayGame {
 	//Method for choice to end turn or stand after playing card
 		public void endOrStand() {
 			clearScreen();
-			System.out.println("=====================================================================");
+			System.out.println(lineBreak);
 			System.out.println("Player 1 =-  Score: " + player1Score + "   |||   Hand: " + listIntToString(player1Hand));
 			System.out.println("Player 2 =-  Score: " + player2Score + "   |||   Hand: " + listIntToString(player2Hand));
-			System.out.println("=====================================================================");
+			System.out.println(lineBreak);
 			System.out.println("Player 1's Board: ");
 			System.out.println("|                     " + listIntToString(player1Table));
 			System.out.println("Total: " + player1TableTotal);
-			System.out.println("=====================================================================");
+			System.out.println(lineBreak);
 			System.out.println("Player 2's Board: ");
 			System.out.println("|                     " + listIntToString(player2Table));
 			System.out.println("Total: " + player2TableTotal);
-			System.out.println("=====================================================================");
+			System.out.println(lineBreak);
 			if (player1Turn) {
 				System.out.println("Player 1! Choose an option:");
 			} else {
@@ -101,11 +103,11 @@ public class PlayGame {
 			}
 			System.out.println("[1] End your turn!          [2] Stand!");
 			int playerInput = checkInput.nextInt();
-			String scannerCloser = checkInput.nextLine();
+			checkInput.nextLine();
 			while (playerInput <= 0 || playerInput > 2) {
 				System.out.println("Please choose a valid number from above: (1, 2, 3, 4, 5, 6)");
 				playerInput = checkInput.nextInt();
-				scannerCloser = checkInput.nextLine();
+				checkInput.nextLine();
 			}
 			switch (playerInput) {
 			case 1:
@@ -130,12 +132,12 @@ public class PlayGame {
 	//run the steps required for a turn to progress
 	public void progressTurn() {
 		int playerInput = checkInput.nextInt();
-		String scannerCloser = checkInput.nextLine();
+		checkInput.nextLine();
 		boolean valid = false;
 		while ((playerInput <= 0 || playerInput > 6) && valid == false) {
 			System.out.println("Please choose a valid number from above: (1, 2, 3, 4, 5, 6)");
 			playerInput = checkInput.nextInt();
-			scannerCloser = checkInput.nextLine();
+			checkInput.nextLine();
 			if (player1Turn) {
 				if (playerInput < player1Hand.size()) {
 					valid = true;
@@ -194,18 +196,18 @@ public class PlayGame {
 	
 	//displays the current game progress
 	public void printDisplay() {
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		System.out.println("Player 1 =-  Score: " + player1Score + "   |||   Hand: " + listIntToString(player1Hand));
 		System.out.println("Player 2 =-  Score: " + player2Score + "   |||   Hand: " + listIntToString(player2Hand));
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		System.out.println("Player 1's Board: ");
 		System.out.println("|                     " + listIntToString(player1Table));
 		System.out.println("Total: " + player1TableTotal);
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		System.out.println("Player 2's Board: ");
 		System.out.println("|                     " + listIntToString(player2Table));
 		System.out.println("Total: " + player2TableTotal);
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		if (player1Turn) {
 			System.out.println("Player 1! Choose an option:");
 		} else {
@@ -228,10 +230,10 @@ public class PlayGame {
 	
 	//runs end of set code, see who won that set, if anyone and adjust their scores to match.
 	public void endSet() {
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		System.out.println("Player 1: " + player1TableTotal);
 		System.out.println("Player 2: " + player2TableTotal);
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		
 		if (player1TableTotal > player2TableTotal && player1TableTotal <= 20) {
 			System.out.println("Player 1 wins the set! With a hand of: " + player1TableTotal);
@@ -250,11 +252,11 @@ public class PlayGame {
 		} else if (player1TableTotal == player2TableTotal) {
 			System.out.println("Set ends in a tie! with both players hands totalling: " + player1TableTotal);
 		}
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		
 		System.out.println("");
 		System.out.println("Press Enter to continue to next set!..");
-		String tempInput = checkInput.nextLine();
+		checkInput.nextLine();
 		
 		player1Table.clear();
 		player2Table.clear();
@@ -269,10 +271,10 @@ public class PlayGame {
 	//Prints end of game results
 	public void endGame() {
 		clearScreen();
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		System.out.println("Player 1's Score: " + player1Score);
 		System.out.println("Player 2's Score: " + player2Score);
-		System.out.println("=====================================================================");
+		System.out.println(lineBreak);
 		if (player1Score >= 3) {
 			System.out.println("Player 1 wins!");
 		} else {
@@ -280,7 +282,7 @@ public class PlayGame {
 		}
 		System.out.println("");
 		System.out.println("Press Enter to end game...");
-		String tempInput = checkInput.nextLine();
+		checkInput.nextLine();
 	}
 	
 	//Prints 30 blank lines to clear the console screen
